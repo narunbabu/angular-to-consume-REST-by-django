@@ -7,44 +7,56 @@ import { Dino } from "../dino";
 
 @Component({
   selector: 'app-dino-details',
-  template: '<h1>This is to be seen {{dino}}</h1>',
+  template: '<h1>This is to be seen  and {{id}}</h1>',
   styles: []
 })
 export class DinoDetailsComponent implements OnInit {
 //   professions: string[] = ['jedi', 'bounty hunter', 'princess', 'sith lord'];
   dino: Dino;
-  sub:any;
+  error: any;
+  sub: any;
+
+  id;
+
 
   constructor(private route: ActivatedRoute,
-              private dinoService: DinosaurService,
-              private router: Router) { }
-error: any;
-// get(id: number): Observable<Dino> {
-//      let dino= this.dinoService
-//         .get(id);
-//     return dino;
-//   }
-// get(id: number): Observable<Dino> {
-//     let person$ = this.http
-//       .get(`${this.baseUrl}/people/${id}`, {headers: this.getHeaders()})
-//       .map(mapPerson)
-//       .catch(handleError);
-//       return person$;
-//   }
-  get(id: number) {
-    this.dinoService
-        .getDinos()
+    private dinosaurService: DinosaurService,
+  private router: Router) { }
+
+  getDino(id) {
+    this.dinosaurService
+        .getDino(id)
         .then(dino => this.dino = dino)
         .catch(error => this.error = error);
-  }
-   ngOnInit() { 
-    this.sub = this.route.params.subscribe(params => {
-      let id = Number.parseInt(params['id']);
-      console.log('getting person with id: ', id);
-      this.dinoService
-        .get(id)
-        
-    });
+        console.log('inside getDino ');
+  //   this.dino.id=1;
+  //   this.dino.species="Test";
+  //   this.dino.url="something url";
+  // return this.dino;
   }
 
+  // ngOnInit(id) {
+  //    this.getDino(id);
+  //       // this.dinosaurService
+  //     // .getAll()
+  //     // .subscribe(
+  //     //    /* happy path */ p => this.people = p,
+  //     //    /* error path */ e => this.errorMessage = e,
+  //     //    /* onCompleted */ () => this.isLoading = false);
+  // }
+
+  ngOnInit() { 
+    this.sub = this.route.params.subscribe(params => {
+      let id = Number.parseInt(params['id']);
+      console.log('getting dino with id: ', id);
+      this.id=id;
+      this.dinosaurService
+        .getDino(id);
+        // .subscribe(p => this.dino = p);
+        
+    });
+      console.log( this.sub);
+  }
 }
+
+
