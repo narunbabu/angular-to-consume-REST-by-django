@@ -7,7 +7,7 @@ import { Dino } from "../dino";
 
 @Component({
   selector: 'app-dino-details',
-  template: '<h1>This is to be seen  and {{id}}</h1>',
+   template: '<h1>This is to be seen  and </h1>',
   styles: []
 })
 export class DinoDetailsComponent implements OnInit {
@@ -28,12 +28,8 @@ export class DinoDetailsComponent implements OnInit {
         .getDino(id)
         .then(dino => this.dino = dino)
         .catch(error => this.error = error);
-        console.log('inside getDino ');
-  //   this.dino.id=1;
-  //   this.dino.species="Test";
-  //   this.dino.url="something url";
-  // return this.dino;
-  }
+        // console.log('inside getDino ');
+ }
 
   // ngOnInit(id) {
   //    this.getDino(id);
@@ -52,6 +48,7 @@ export class DinoDetailsComponent implements OnInit {
       this.id=id;
       this.dinosaurService
         .getDino(id);
+        // console.log( this.dinosaurService.getDino(id));
         // .subscribe(p => this.dino = p);
         
     });

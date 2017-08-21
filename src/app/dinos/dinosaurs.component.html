@@ -1,0 +1,26 @@
+  <!-- <li *ngFor="let dino of dinos">  -->
+      <!-- <button class="btn btn-sm btn-warning" (click)="getDino(dino.id)">  -->
+       <!-- <a href="http://localhost:4200/dinosaurs/ {{dino.id}}"> {{dino.id}} -->
+        <!-- {{dino.species}} </a> -->
+       <!-- <a [routerLink]="['/dinosaurs', dino.id]">{{dino.id}}
+        {{dino.species}} </a> -->
+      <!-- </button> -->
+      
+  <!-- </li> -->
+
+
+
+  <h2>My Dinosaurs</h2>
+  <ul class="heroes">
+    <li *ngFor="let dino of dinos" (click)="selectDino(dino)">
+      <span class="badge">{{dino.id}}</span> {{dino.species}}
+    </li>
+  </ul>
+  <div *ngIf="selectedDino">
+  <h2>{{selectedDino.name}} details!</h2>
+  <div><label>id: </label>{{selectedDino.id}}</div>
+  <div>
+      <label>name: </label>
+      <input [(ngModel)]="selectedDino.species" placeholder="name"/>
+  </div>
+  </div>

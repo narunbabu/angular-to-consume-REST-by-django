@@ -4,17 +4,16 @@ import { Dino} from '../dino';
 
 @Component({
   selector: 'dinosaurs',
-  template: `<ul><li *ngFor="let dino of dinos">
-  
-  <a [routerLink]="['/dinosaurs', dino.url[32]]">
-        {{dino.species}} 
-      </a>
-  </li></ul>`
+  templateUrl: './dinosaurs.component.html',
+  styleUrls:['./dinosaurs.component.css'],
 })
+// <a [routerLink]="['/dinosaurs', dino.url[32]]">
+// </a>
 export class DinosaurComponent implements OnInit {
   dinos: Dino[];
+  dino: Dino;
   error: any;
-
+  selectedDino:Dino;
   constructor(private dinosaurService: DinosaurService) { }
 
   getDinos() {
@@ -26,13 +25,20 @@ export class DinosaurComponent implements OnInit {
 
   ngOnInit() {
     this.getDinos();
-        // this.dinosaurService
-      // .getAll()
-      // .subscribe(
-      //    /* happy path */ p => this.people = p,
-      //    /* error path */ e => this.errorMessage = e,
-      //    /* onCompleted */ () => this.isLoading = false);
   }
-
+   getDino(id) {
+    return this.dinosaurService
+        .getDino(id)
+        .then(dino => this.dino = dino)
+        .catch(error => this.error = error);
+        // console.log('inside getDino ');
+ }
+ selectDino(dino: Dino): void {
+  // this.selectedDino = dino;
+ this.dinosaurService
+  .getDino(dino.id)
+  .then(dino => this.selectedDino= dino)
+  .catch(error => this.error = error);
+}
 
 }
